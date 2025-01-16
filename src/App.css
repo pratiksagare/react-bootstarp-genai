@@ -1,0 +1,31 @@
+/* App.css */
+
+
+.custom-row {
+  height: 80%;
+  /* Ensures the row fills the parent's height */
+}
+
+.custom-col {
+  overflow-y: scroll;
+  /* Makes the content scrollable */
+  height: 50%;
+  /* Default height for smaller screens (xs) */
+}
+
+@media (min-width: 992px) {
+
+  /* For lg and greater screens */
+  .custom-col {
+    height: 100%;
+    /* Full height for larger screens */
+  }
+}
+
+
+.custom-col {
+  -ms-overflow-style: none;
+  /* Hide scrollbar in IE and Edge */
+  scrollbar-width: none;
+  /* Hide scrollbar in Firefox */
+}
