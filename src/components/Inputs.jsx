@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -27,9 +27,9 @@ export default function Inputs() {
         setQuery(event.target.value);
     }
 
-    const handleJustCode = useCallback(() => {
-        setJustCode(prev => !prev);
-    }, [justCode])
+    // const handleJustCode = useCallback(() => {
+    //     setJustCode(prev => !prev);
+    // }, [justCode])
 
     console.log({ justCode })
 
@@ -80,7 +80,7 @@ export default function Inputs() {
     };
 
     const handleAllModel = async () => {
-        Promise.all([handleGeminiQuery(query, "geminiFlash"), handleGeminiQuery(query, "geminiPro")])
+        await Promise.all([handleGeminiQuery(query, "geminiFlash"), handleGeminiQuery(query, "geminiPro")])
     }
 
     const handleSendMessage = async () => {
@@ -169,7 +169,7 @@ export default function Inputs() {
                 </Col>
                 <Col xs={2} lg={1} className='d-flex flex-column align-items-center'>
                     {/* <Form.Check value={justCode} onChange={handleJustCode} type="checkbox" id={`default-checkbox`} label={`Just-Code`} /> */}
-                    <Button className='w-100' disabled={disableQuery} variant='primary' onClick={handleSendMessage}>Send</Button>
+                    <Button className='w-100' disabled={disableQuery} variant='dark' onClick={handleSendMessage}>Send</Button>
                 </Col>
             </Row>
         </>
