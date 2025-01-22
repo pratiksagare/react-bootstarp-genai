@@ -4,6 +4,7 @@ import GeminiFlash from '../components/GeminiFlash'
 import GeminiPro from '../components/GeminiPro'
 import Inputs from '../components/Inputs'
 import Navbar from '../components/Navbar'
+import '../style/customSwitchStyle.css'
 
 export default function AIPage() {
     return (

@@ -7,13 +7,15 @@ import { sendMessage } from '../utils/utils.js'
 import { AppContext } from '../context/AppContext';
 import { ToastContainer, toast } from 'react-toastify';
 import { Bounce } from 'react-toastify/unstyled';
+import { RiResetRightLine } from "react-icons/ri";
+import { FaImage } from "react-icons/fa6";
 
 export default function Inputs() {
     const [query, setQuery] = useState("");
-    const [justCode, setJustCode] = useState(true);
+    // const [justCode, setJustCode] = useState(true);
     const [disableQuery, setDisableQuery] = useState(false);
-    const { models, setModels, model, setModel, language, setLanguage } = useContext(AppContext);
-    console.log({ query, models, setModels, model, setModel, language, setLanguage });
+    const { resetChat, setModels, model, setModel, language, setLanguage } = useContext(AppContext);
+    // console.log({ query, models, setModels, model, setModel, language, setLanguage });
 
     const handleLanguageChange = (event) => {
         setLanguage(event.target.value);
@@ -31,7 +33,7 @@ export default function Inputs() {
     //     setJustCode(prev => !prev);
     // }, [justCode])
 
-    console.log({ justCode })
+    // console.log({ justCode })
 
     const handleGeminiQuery = async (query, modelKey) => {
         const codeQuery = `write program in ${language} language without any comments and without any code explanation for below - ${query}`;
@@ -44,7 +46,7 @@ export default function Inputs() {
 
         // Send query to Gemini AI
         try {
-            const response = await sendMessage(justCode ? codeQuery : query, model);
+            const response = await sendMessage(codeQuery, model);
             setModels((prevModels) => ({
                 ...prevModels,
                 [modelKey]: [
@@ -134,7 +136,7 @@ export default function Inputs() {
 
     return (
         <>
-            <Row className="w-100 mb-2 g-0 gap-2 d-flex justify-content-center align-items-center">
+            <Row className="w-100 mb-1 g-0 gap-2 d-flex justify-content-center align-items-center">
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -149,13 +151,13 @@ export default function Inputs() {
                     transition={Bounce}
                 />
                 <Col xs={4} lg={2}>
-                    <Form.Select aria-label="Default select example" value={model} onChange={handleModelChange}>
+                    <Form.Select aria-label="Default select example" value={model} onChange={handleModelChange} style={{ boxShadow: 'none' }}>
                         <option value="" disabled>Select Model</option>
                         <option value="all">All</option>
                         <option value="geminiflash">Gemini 1.5 Flash</option>
                         <option value="geminipro">Gemini 1.5 Pro</option>
                     </Form.Select>
-                    <Form.Select aria-label="Default select example" className='mt-2' value={language} onChange={handleLanguageChange}>
+                    <Form.Select aria-label="Default select example" className='mt-2' value={language} onChange={handleLanguageChange} style={{ boxShadow: 'none' }}>
                         <option value="" disabled>Select Language</option>
                         <option value="javascript">JavaScript</option>
                         <option value="java">Java</option>
@@ -165,10 +167,14 @@ export default function Inputs() {
                     </Form.Select>
                 </Col>
                 <Col xs={5} lg={8}>
-                    <Form.Control as="textarea" rows={3} value={query} style={{ resize: 'none', outline: 'none' }} data-gramm="false" onChange={handleQueryChange} disabled={disableQuery} placeholder='Type prompt here...' />
+                    <Form.Control as="textarea" rows={3} value={query} style={{ resize: 'none', outline: 'none', boxShadow: 'none' }} data-gramm="false" onChange={handleQueryChange} disabled={disableQuery} placeholder='Type prompt here...' />
                 </Col>
-                <Col xs={2} lg={1} className='d-flex flex-column align-items-center'>
+                <Col xs={2} lg={1} className='d-flex gap-2 flex-column align-items-center'>
                     {/* <Form.Check value={justCode} onChange={handleJustCode} type="checkbox" id={`default-checkbox`} label={`Just-Code`} /> */}
+                    <Col className='d-flex gap-2'>
+                        <RiResetRightLine size={22} onClick={resetChat} style={{ cursor: 'pointer', padding: 0 }} />
+                        <FaImage size={22} style={{ cursor: 'pointer', padding: 0 }} />
+                    </Col>
                     <Button className='w-100' disabled={disableQuery} variant='dark' onClick={handleSendMessage}>Send</Button>
                 </Col>
             </Row>
