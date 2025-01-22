@@ -1,14 +1,15 @@
-export default function Navbar() {
-    // const style = {
-    //     display: 'flex',
-    //     justifyContent: 'center', // Correct property for flexbox
-    //     alignItems: 'center'      // Align items vertically in the center
-    // };
+import { Link } from 'react-router-dom';
 
+export default function Navbar() {
+    const linkStyle = {
+        userSelect: 'none',
+        textDecoration: 'none',
+        color: 'black'
+    }
     return (
         <div className="py-2 border-bottom d-flex justify-content-between align-items-center">
-            <span>Gen AI</span>
-            <span>PlayGround</span>
-        </div>
-    )
+            < Link style={linkStyle} to={"/"}>Gen AI</Link>
+            < Link style={linkStyle} to={"/playground"}>PlayGround</Link>
+        </div >
+    );
 }
